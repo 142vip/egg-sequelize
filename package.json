@@ -1,0 +1,67 @@
+{
+  "name": "@142vip/egg-sequelize",
+  "version": "0.0.1",
+  "description": "兼容egg-sequelize插件的所有配置和功能，解决egg-sequelize连接数据库无法实现数据库动态部署",
+  "author": {
+    "name": "Rong姐姐好可爱"
+  },
+  "bundleDependencies": false,
+  "ci": {
+    "version": "8, 10"
+  },
+  "dependencies": {
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.7"
+  },
+  "deprecated": false,
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg": "^2.16.0",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0"
+  },
+  "keywords": [
+    "公众号：Rong姐姐好可爱",
+    "142vip",
+    "egg",
+    "egg-plugin",
+    "egg-sequelize",
+    "egg-sequelize-plus",
+    "egg-mysql"
+  ],
+  "scripts": {
+    "autod": "autod",
+    "ci": "egg-bin pkgfiles --check && npm run lint && npm run cov",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "pkgfiles": "egg-bin pkgfiles",
+    "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
+    "test-local": "egg-bin test"
+  },
+  "eggPlugin": {
+    "name": "sequelizePlus"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "app.js",
+    "agent.js",
+    "config",
+    "app",
+    "lib"
+  ],
+  "homepage": "https://github.com/mmdapl/egg-sequelize-plus#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmdapl/egg-sequelize-plus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mmdapl/egg-sequelize-plus/issues"
+  }
+}
