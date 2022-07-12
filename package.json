@@ -30,7 +30,7 @@
     "egg",
     "egg-plugin",
     "egg-sequelize",
-    "egg-sequelize-plus",
+    "@142vip/egg-sequelize",
     "egg-mysql"
   ],
   "scripts": {
@@ -55,13 +55,13 @@
     "app",
     "lib"
   ],
-  "homepage": "https://github.com/mmdapl/egg-sequelize-plus#readme",
+  "homepage": "https://github.com/mmdapl/@142vip/egg-sequelize#readme",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmdapl/egg-sequelize-plus.git"
+    "url": "git+https://github.com/mmdapl/@142vip/egg-sequelize.git"
   },
   "bugs": {
-    "url": "https://github.com/mmdapl/egg-sequelize-plus/issues"
+    "url": "https://github.com/mmdapl/@142vip/egg-sequelize/issues"
   }
 }
