@@ -6,4 +6,6 @@ exports.sequelize = {
   client: {},
   // 支持多客户端
   clients: {},
+  app: true,
+  agent: false,
 };
