@@ -44,12 +44,17 @@
 [download-url]: https://npmjs.org/package/@142vip/egg-sequelize
 
 
-Sequelize plugin for Egg.js , Based on egg-sequelize at present
 
-NOTE: This plug-in integrates sequelize to egg.js on the basis of egg sequelize, provides dynamic database creation,
-realizes data dynamic deployment, and is perfectly compatible with all functions of the current egg sequelize plug-in
-more documentation please visit [sequelize](http://sequelizejs.com)
-and [egg-sequelize](https://github.com/eggjs/egg-sequelize)
+Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](https://github.com/eggjs/egg-sequelize) 开发实现。
+
+### 支持的功能
+
+- [x] 动态数据库表创建、数据动态部署
+- [x] Sequelize ORM方法调用，原生SQL语句查询
+- [x] 模型自动挂载、实例化sequelize对象
+- [x] 多数据源配置连接、连接池，连接自动重试机制（重试10次，每次休眠1s）
+- [x] app.js、agent.js 自定义挂载
+- [ ] ...
 
 ### 快速安装
 
@@ -482,7 +487,7 @@ module.exports = app => {
 
 ### 可能遇到的问题
 
-更多问题欢迎 issue [here](https://github.com /142vip/egg-sequelize/issues)交流.
+更多问题欢迎 [issues](https://github.com/142vip/egg-sequelize/issues) 交流.
 
 ### 开发者
 
