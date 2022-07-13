@@ -7,8 +7,9 @@
     "version": "8, 10"
   },
   "dependencies": {
-    "mysql2": "^2.1.0",
-    "sequelize": "^5.21.7"
+    "mysql2": "^2.0.0",
+    "mz-modules": "^2.1.0",
+    "sequelize": "^6.0.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

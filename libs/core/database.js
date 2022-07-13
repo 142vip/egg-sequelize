@@ -9,8 +9,8 @@ class Database {
   }
 
   /**
-     * 数据库不存在时，自动创建数据库
-     */
+   * 数据库不存在时，自动创建数据库
+   */
   async create() {
     const { username, password, host, port, database } = this.config;
     const creatDataBaseSql = `CREATE DATABASE IF NOT EXISTS ${database} ` +
@@ -22,9 +22,10 @@ class Database {
     // 执行sql
     try {
       await connection.execute(creatDataBaseSql);
-      this.logger.info('[@142vip/egg-sequelize] 创建失败');
+      this.logger.info(`[@142vip/egg-sequelize] It is detected that the database ${database} does not exist, and the automatic creation of the database is successful`);
+      connection.end();
     } catch (e) {
-      this.logger.error('[@142vip/egg-sequelize] 创建失败');
+      this.logger.error('[@142vip/egg-sequelize] the automatic creation of the database is unsuccessful !');
     }
   }
 }

@@ -3,11 +3,11 @@
 <p align="center">
 <a href="https://space.bilibili.com/350937042" target="_blank"><img src="https://img.shields.io/badge/Bilibili-哔哩哔哩-green.svg"></a> 
 <a href="https://142vip.cn" target="_blank"><img src="https://img.shields.io/badge/142vip-个人网站-orange.svg"></a>
-<a href="http://yapi.142vip.cn" target="_blank"><img src="https://img.shields.io/badge/yapi-接口系统-8fe.svg"></a>
+<a href="https://yapi.142vip.cn" target="_blank"><img src="https://img.shields.io/badge/yapi-接口管理-8fe.svg"></a>
 <a href="https://blog.142vip.cn" target="_blank"><img src="https://img.shields.io/badge/blog-我的博客-blue.svg"></a>
-<a href="https://github.com/mmdapl" target="_blank"><img src="https://img.shields.io/badge/github-Github-9ac.svg"></a>
-<a href="https://gitee.com/mmdapl" target="_blank"><img src="https://img.shields.io/badge/gitee-码云-4ed.svg"></a>
-<a href="https://blog.csdn.net/Mmdapl" target="_blank"><img src="https://img.shields.io/badge/csdn-CSDN-8ea.svg"></a>
+<a href="https://github.com/mmdapl" target="_blank"><img src="https://img.shields.io/badge/github-代码-9ac.svg"></a>
+<a href="https://gitee.com/mmdapl" target="_blank"><img src="https://img.shields.io/badge/gitee-代码-4ed.svg"></a>
+<a href="https://blog.csdn.net/Mmdapl" target="_blank"><img src="https://img.shields.io/badge/csdn-博客-8ea.svg"></a>
 
 
 </p>
@@ -45,7 +45,7 @@
 
 
 
-Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](https://github.com/eggjs/egg-sequelize) 开发实现。
+Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](https://github.com/eggjs/egg-sequelize) 开发，使用存在较大差异。实际使用请参考以下文档
 
 ### 支持的功能
 
@@ -54,6 +54,7 @@ Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](htt
 - [x] 模型自动挂载、实例化sequelize对象
 - [x] 多数据源配置连接、连接池，连接自动重试机制（重试10次，每次休眠1s）
 - [x] app.js、agent.js 自定义挂载
+- [x] 多种方式调用sequelize实例；高度适配sequelize模块
 - [ ] ...
 
 ### 快速安装
@@ -104,8 +105,7 @@ exports.sequelize = {
 };
 ```
 
-当然，你也可以使用连接字符串connectionUri字段来配置数据库连接，例如： You can also use the connection uri to configure the connection:
-
+当然，你也可以使用连接字符串connectionUri字段来配置数据库连接，例如：
 ```js
 exports.sequelize = {
     dialect: 'mysql',
