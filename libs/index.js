@@ -38,18 +38,18 @@ async function createSequelizeInstance(config, app) {
       },
     },
   };
-  app.config = Object.assign({}, defaultConfig, config);
+  // app.config = Object.assign({}, defaultConfig, config);
 
   const { options } = config;
 
 
   // 提前创建好数据库 支持mysql
   if (options != null && options.dialect === 'mysql') {
-    await new database(app).create();
+    await new database(app, Object.assign({}, defaultConfig, config)).create();
   }
-  const sequelizeInstance = new sequelizeInit(app);
+  const sequelizeInstance = new sequelizeInit(app, Object.assign({}, defaultConfig, config));
 
-  const sequelizeConnection = sequelizeInstance.loadDataBaseModel();
+  const sequelizeConnection = await sequelizeInstance.loadDataBaseModel();
   // 重试
   await sequelizeInstance.databaseAuthenticate(sequelizeConnection);
 
