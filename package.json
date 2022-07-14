@@ -40,7 +40,7 @@
     "test-local": "egg-bin test"
   },
   "eggPlugin": {
-    "name": "sequelizePlus"
+    "name": "sequelize"
   },
   "engines": {
     "node": ">=8.0.0"

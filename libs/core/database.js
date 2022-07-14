@@ -2,10 +2,10 @@
 const mysql = require('mysql2');
 
 class Database {
-  constructor(app) {
+  constructor(app, config) {
     this.app = app;
     this.logger = app.coreLogger;
-    this.config = app.config;
+    this.config = config;
   }
 
   /**

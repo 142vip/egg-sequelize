@@ -5,9 +5,9 @@ const DB_AUTH_RETRIES = Symbol('DBAuthenticate#Retries');
 const MaxRetryCount = 10;
 
 class SequelizeInit {
-  constructor(app) {
+  constructor(app, config) {
     this.app = app;
-    this.config = app.config;
+    this.config = config;
     this.logger = app.coreLogger;
   }
 
@@ -23,7 +23,7 @@ class SequelizeInit {
     app.sequelize = config.Sequelize || require('sequelize');
     const { username, password, database, options } = config;
     // 实例化sequelize对象
-    const sequelize = new app.Sequelize(database, username, password, options);
+    const sequelize = new app.sequelize(database, username, password, options);
 
     const delegateArr = config.delegate.split('.');
     const delegateLen = delegateArr.length;
@@ -40,7 +40,7 @@ class SequelizeInit {
     }
 
     // 将sequelize对象，挂载到ctx.model中，方便使用原生方法
-    Object.defineProperty(model, delegateArr[delegateArr - 1], {
+    Object.defineProperty(model, delegateArr[delegateLen - 1], {
       value: sequelize,
       writable: false,
       configurable: true,
@@ -48,12 +48,12 @@ class SequelizeInit {
 
 
     const DELEGATE = Symbol(`context#sequelize_${config.delegate}`);
-    Object.defineProperty(context, delegateArr[delegateArr - 1], {
+    Object.defineProperty(context, delegateArr[delegateLen - 1], {
       get() {
         // context.model is different with app.model
         // so we can change the properties of ctx.model.xxx
         if (!this[DELEGATE]) {
-          this[DELEGATE] = Object.create(model[delegateArr[delegateArr - 1]]);
+          this[DELEGATE] = Object.create(model[delegateArr[delegateLen - 1]]);
           this[DELEGATE].ctx = this;
         }
         return this[DELEGATE];

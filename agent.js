@@ -1,11 +1,12 @@
 'use strict';
 
-const { createDataBase, createSequelizeInstance } = require('./libs');
+const { createSequelizeInstance } = require('./libs');
 const assert = require('assert');
 
 class AgentBootHook {
   constructor(agent) {
     this.agent = agent;
+    this.config = agent.config;
   }
 
   configWillLoad() {
@@ -17,12 +18,11 @@ class AgentBootHook {
 
   async didLoad() {
     const { config, agent } = this;
-    await createDataBase(agent);
     assert(config.sequelize != null && typeof config.sequelize === 'object', '[@142vip/egg-sequelize] 缺少sequelize配置');
 
     assert(typeof config.sequelize.app === 'boolean', '[@142vip/egg-sequelize] app为true或者false');
 
-    if (config.sequelize.app) {
+    if (config.sequelize.agent) {
       await agent.addSingleton('sequelize', await createSequelizeInstance);
     }
   }

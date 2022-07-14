@@ -7,6 +7,7 @@ const assert = require('assert');
 class AppBootHook {
   constructor(app) {
     this.app = app;
+    this.config = app.config;
   }
 
   configWillLoad() {
