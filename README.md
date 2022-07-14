@@ -72,9 +72,9 @@ npm install @142vip/egg-sequlize@xxx --save
 
 ```js
 // {app_root}/config/plugin.js
-exports.sequelizePlus = {
+exports.sequelize = {
     enable: true,
-    package: 'egg-sequelize',
+    package: '@142vip/egg-sequelize',
 };
 ```
 
