@@ -2,6 +2,7 @@
 const sleep = require('mz-modules/sleep');
 const path = require('path');
 const DB_AUTH_RETRIES = Symbol('DBAuthenticate#Retries');
+// 最大重试次数 10次
 const MaxRetryCount = 10;
 
 class SequelizeInit {
@@ -18,12 +19,11 @@ class SequelizeInit {
    */
   async loadDataBaseModel() {
     const { app, config } = this;
-
     // sequelize模块版本
-    app.sequelize = config.Sequelize || require('sequelize');
+    const currentSequelize = config.Sequelize || require('sequelize');
     const { username, password, database, options } = config;
     // 实例化sequelize对象
-    const sequelize = new app.sequelize(database, username, password, options);
+    app.sequelize = new currentSequelize(database, username, password, options);
 
     const delegateArr = config.delegate.split('.');
     const delegateLen = delegateArr.length;
@@ -41,17 +41,15 @@ class SequelizeInit {
 
     // 将sequelize对象，挂载到ctx.model中，方便使用原生方法
     Object.defineProperty(model, delegateArr[delegateLen - 1], {
-      value: sequelize,
+      value: app.sequelize,
       writable: false,
       configurable: true,
     });
 
-
     const DELEGATE = Symbol(`context#sequelize_${config.delegate}`);
     Object.defineProperty(context, delegateArr[delegateLen - 1], {
       get() {
-        // context.model is different with app.model
-        // so we can change the properties of ctx.model.xxx
+        // 扩展context上的config.delegate属性，默认为model
         if (!this[DELEGATE]) {
           this[DELEGATE] = Object.create(model[delegateArr[delegateLen - 1]]);
           this[DELEGATE].ctx = this;
@@ -61,13 +59,13 @@ class SequelizeInit {
       configurable: true,
     });
 
-
-    await this.loadModelFileToApp(path.join(app.baseDir, 'app', config.baseDir), app.sequelize);
+    const targetName = Symbol(config.delegate);
+    await this.loadModelFileToApp(path.join(app.baseDir, 'app', config.baseDir), targetName, app.sequelize);
     // 深拷贝
-    Object.assign(model[delegateArr[delegateArr - 1]], app[config.delegate]);
+    Object.assign(model[delegateArr[delegateLen - 1]], app[targetName]);
 
     // sequelize 连接对象
-    return model[delegateArr[delegateArr - 1]];
+    return model[delegateArr[delegateLen - 1]];
   }
 
 
@@ -76,10 +74,10 @@ class SequelizeInit {
    * @param modelDir  数据库模型文件目录路径
    * @param sequelize sequelize实例
    */
-  async loadModelFileToApp(modelDir, sequelize) {
+  async loadModelFileToApp(modelDir, targetName, sequelize) {
     const { app, config } = this;
     const models = [];
-    app.loader.loadToApp(modelDir, config.delegate, {
+    app.loader.loadToApp(modelDir, targetName, {
       caseStyle: 'upper',
       ignore: config.exclude,
       filter(model) {

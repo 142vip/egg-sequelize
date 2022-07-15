@@ -1,7 +1,7 @@
 
 'use strict';
 
-module.exports = app => {
+module.exports = () => {
   const config = {};
   config.keys = 'fairy sister so cute';
 
@@ -25,11 +25,11 @@ module.exports = app => {
           underscored: true,
         },
         // 是否开启日志，默认false,支持自定义
-        logging(...args) {
-          // if benchmark enabled, log used
-          const used = typeof args[1] === 'number' ? `(${args[1]}ms)` : '';
-          app.coreLogger.info('[@142vip/egg-sequelize]%s %s', used, args[0]);
-        },
+        // logging(...args) {
+        //   // if benchmark enabled, log used
+        //   const used = typeof args[1] === 'number' ? `(${args[1]}ms)` : '';
+        //   app.coreLogger.info('[@142vip/egg-sequelize]%s %s', used, args[0]);
+        // },
         // timezone: 'Asia/Shanghai',
         pool: {
           maxConnections: 5,
