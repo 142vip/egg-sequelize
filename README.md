@@ -12,36 +12,53 @@
 
 </p>
 
-<div style="text-align:center">
+[//]: # (<p align="center">)
 
-[![NPM version][npm-image]][npm-url][![Known Vulnerabilities][snyk-image]][snyk-url][![npm download][download-image]][download-url]
+[//]: # ()
+[//]: # ([![NPM version][npm-image]][npm-url])
 
-</div>
+[//]: # ([![Known Vulnerabilities][snyk-image]][snyk-url])
+
+[//]: # ([![npm download][download-image]][download-url])
+
+[//]: # ()
+[//]: # (</p>)
 
 
-[npm-image]: https://img.shields.io/npm/v/@142vip/egg-sequelize.svg?style=flat-square
+[//]: # ([npm-image]: https://img.shields.io/npm/v/@142vip/egg-sequelize.svg?style=flat-square)
 
-[npm-url]: https://npmjs.org/package/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([npm-url]: https://npmjs.org/package/@142vip/egg-sequelize)
 
-[travis-image]: https://img.shields.io/travis/eggjs/@142vip/egg-sequelize.svg?style=flat-square
+[//]: # ()
+[//]: # ([travis-image]: https://img.shields.io/travis/eggjs/@142vip/egg-sequelize.svg?style=flat-square)
 
-[travis-url]: https://travis-ci.org/eggjs/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([travis-url]: https://travis-ci.org/eggjs/@142vip/egg-sequelize)
 
-[codecov-image]: https://img.shields.io/codecov/c/github/eggjs/@142vip/egg-sequelize.svg?style=flat-square
+[//]: # ()
+[//]: # ([codecov-image]: https://img.shields.io/codecov/c/github/eggjs/@142vip/egg-sequelize.svg?style=flat-square)
 
-[codecov-url]: https://github.com/mmdapl/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([codecov-url]: https://github.com/mmdapl/@142vip/egg-sequelize)
 
-[david-image]: https://img.shields.io/david/eggjs/@142vip/egg-sequelize.svg?style=flat-square
+[//]: # ()
+[//]: # ([david-image]: https://img.shields.io/david/eggjs/@142vip/egg-sequelize.svg?style=flat-square)
 
-[david-url]: https://david-dm.org/eggjs/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([david-url]: https://david-dm.org/eggjs/@142vip/egg-sequelize)
 
-[snyk-image]: https://snyk.io/test/npm/@142vip/egg-sequelize/badge.svg?style=flat-square
+[//]: # ()
+[//]: # ([snyk-image]: https://snyk.io/test/npm/@142vip/egg-sequelize/badge.svg?style=flat-square)
 
-[snyk-url]: https://snyk.io/test/npm/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([snyk-url]: https://snyk.io/test/npm/@142vip/egg-sequelize)
 
-[download-image]: https://img.shields.io/npm/dm/@142vip/egg-sequelize.svg?style=flat-square
+[//]: # ()
+[//]: # ([download-image]: https://img.shields.io/npm/dm/@142vip/egg-sequelize.svg?style=flat-square)
 
-[download-url]: https://npmjs.org/package/@142vip/egg-sequelize
+[//]: # ()
+[//]: # ([download-url]: https://npmjs.org/package/@142vip/egg-sequelize)
 
 
 
