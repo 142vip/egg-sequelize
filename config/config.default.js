@@ -19,7 +19,7 @@ exports.sequelize = {
   //     username: 'root',
   //     password: '123456',
   //     database: '142vip_db_test',
-  //     delegate: 'model',
+  //     delegate: 'young_model',
   //     baseDir: 'model', // 数据库模型存放的目录
   //     exclude: '', // 支持数组或者字符串
   //     Sequelize: require('sequelize'), // 指定Sequelize模块版本
@@ -29,7 +29,7 @@ exports.sequelize = {
   //     username: 'root',
   //     password: '123456',
   //     database: '142vip_db_test',
-  //     delegate: 'model',
+  //     delegate: 'fairy_model',
   //     baseDir: 'model', // 数据库模型存放的目录
   //     exclude: '', // 支持数组或者字符串
   //     Sequelize: require('sequelize'), // 指定Sequelize模块版本

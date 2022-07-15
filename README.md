@@ -61,7 +61,7 @@ Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](htt
 
 ```bash
 ## 最新版
-npm i @142vip/egg-sequelize --save
+npm install @142vip/egg-sequelize --save
 
 ## 指定版本
 npm install @142vip/egg-sequlize@xxx --save
@@ -85,57 +85,72 @@ exports.sequelize = {
 ```js
 // {app_root}/config/config.default.js
 exports.sequelize = {
-    dialect: 'mysql',       // 支持的数据库类型，目前支持mysql
-    database: 'test',       // 数据库名称，如果不存在会自动新建
-    host: '127.0.0.1',      // 数据库主机地址，默认 127.0.0.1
-    port: 3306,             // 数据库端口，默认3306
-    username: 'root',       // 用户名，默认root
-    password: 'root',       // 密码，默认123456
-    // delegate: 'myModel', // 加载所有模型文件到app或者ctx对象上的属性，ctx[delegate]或者app[delegate] 默认：model
-    // baseDir: 'my_model', // 将app/${baseDir}目录下的文件加载到上面的delegate对象中，用做数据库表模型，默认：model目录下所有文件
-    // exclude: 'index.js', // 忽略模型目录下的文件，避免被加载到模型对选哪个中，支持字符串或者数组，例如：'index.js' ['index.js'..]
-    // more sequelize options
-    logging: false,         // 是否开启日志，默认false
-    options: {              // 其他参数
-        timezone: 'Asia/Shanghai',
-        pool: {
-            maxConnections: 5,
+    client:{
+        username: 'root',                   // 用户名，默认root
+        password: '123456',                 // 密码，默认123456
+        database: '142vip_db_test',         // 数据库名称，如果不存在会自动新建
+        delegate: 'model',                  // 加载所有模型文件到app或者ctx对象上的属性，ctx[delegate]或者app[delegate] 默认：model
+        baseDir: 'model',                   // 将app/${baseDir}目录下的文件加载到上面的delegate对象中，用做数据库表模型，默认：model目录下所有文件
+        exclude: '',                        // 忽略模型目录下的文件，避免被加载到模型对选哪个中，支持字符串或者数组，例如：'index.js' ['index.js'..]
+        Sequelize: require('sequelize'),    // 指定Sequelize模块版本
+        // 其他配置，参考：https://github.com/sequelize/sequelize/blob/main/src/sequelize.js
+        options: {
+            dialect: 'mysql',
+            host: '127.0.0.1',              // 数据库主机地址，默认 127.0.0.1
+            port: 3306,                     // 数据库端口，默认3306
+            benchmark: true,
+            define: {
+                freezeTableName: false,
+                underscored: true,
+            },
+            // 是否开启日志，默认false,支持自定义,benchmark为false时候生效
+            logging(...args) {
+                // if benchmark enabled, log used
+                const used = typeof args[1] === 'number' ? `(${args[1]}ms)` : '';
+                app.logger.info('[@142vip/egg-sequelize]%s %s', used, args[0]);
+            },
+            timezone: '+00:00',
+            pool: {
+                max: 5,
+                idle: 30000,
+                acquire: 60000,
+            },
         },
     },
+    app:true,
+    agent:false
 };
 ```
 
-当然，你也可以使用连接字符串connectionUri字段来配置数据库连接，例如：
-```js
-exports.sequelize = {
-    dialect: 'mysql',
-    connectionUri: 'mysql://root:@127.0.0.1:3306/test', // 数据库连接字符串
-};
-```
 
 插件本身默认的连接配置，你可以自行配置进行覆盖，具体有：
 
 ```js
 module.exports = {
-    delegate: 'model',
-    baseDir: 'model',
-    logging(...args) {
-        // if benchmark enabled, log used
-        const used = typeof args[1] === 'number' ? `[${args[1]}ms]` : '';
-        app.logger.info('[egg-sequelize]%s %s', used, args[0]);
-    },
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
+    dialect: 'mysql',
+    host: '127.0.0.1',              // 数据库主机地址，默认 127.0.0.1
+    port: 3306,                     // 数据库端口，默认3306
     benchmark: true,
     define: {
         freezeTableName: false,
         underscored: true,
-    }
+    },
+    // 是否开启日志，默认false,支持自定义,benchmark为false时候生效
+    logging(...args) {
+        // if benchmark enabled, log used
+        const used = typeof args[1] === 'number' ? `(${args[1]}ms)` : '';
+        app.logger.info('[@142vip/egg-sequelize]%s %s', used, args[0]);
+    },
+    timezone: '+00:00',
+    pool: {
+        max: 5,
+        idle: 30000,
+        acquire: 60000,
+    },
 }
 ```
 
-更多默认配置，可以查看配置文件[config/config.default.js](config/config.default.js)
+更多默认配置，可以查看配置文件[config/config.default.js](config/config.default.js) ，具体属性也可以参考[sequelize配置](https://github.com/sequelize/sequelize/blob/main/src/sequelize.js)
 
 ### 模型文件
 
@@ -164,7 +179,7 @@ module.exports = {
 
 ### 标准模型定义
 
-特别提醒，当egg-sequelize插件初始化完成后，app.model和ctx.model上的对象实际一个[Sequelize对象实例](http://docs.sequelizejs.com/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor)
+特别提醒，当egg-sequelize插件初始化完成后，app.model 和 ctx.model上的对象实际一个[Sequelize对象实例](http://docs.sequelizejs.com/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor)
 ,
 
 所以可以利用它们使用在Sequelize ORM框架提供的任何实例方法，例如：app.model.sync(模型同步)、 app.model.query(原生SQL查询)... so you can use methods
@@ -278,6 +293,7 @@ const {Controller} = require('egg')
 
 class UserController extends Controller {
     async index() {
+        // app.model.xxx 和 ctx.model.xxx 效果相同
         const users = await this.ctx.model.User.findAll();
         this.ctx.body = users;
     }
@@ -313,6 +329,8 @@ class UserService extends Service {
 
 ```
 
+
+
 ### 表关联关系
 
 使用sequelize支持的数据表关联操作，需要在`Model.associate()`中定义。egg-sequelize在所有的模型加载完成后执行。例如：
@@ -324,25 +342,37 @@ egg-sequelize插件支持独立加载多个数据库连接配置；可以使用`
 ```js
 // config/config.default.js
 exports.sequelize = {
-    datasources: [
-        {
-            delegate: 'model', // load all models to app.model and ctx.model 
-            baseDir: 'model', // load models from `app/model/*.js`
-            database: 'biz',      // other sequelize configurations
+      clients: {
+        younger_sister: {
+          username: 'root',
+          password: '123456',
+          database: '142vip_db_test',
+          delegate: 'young_model',
+          baseDir: 'young_model', // 数据库模型存放的目录
+          exclude: '', // 支持数组或者字符串
+          Sequelize: require('sequelize'), // 指定Sequelize模块版本
+          // 其他配置，参考：https://github.com/sequelize/sequelize/blob/main/src/sequelize.js
         },
-        {
-            delegate: 'admninModel', // load all models to app.adminModel and ctx.adminModel 
-            baseDir: 'admin_model', // load models from `app/admin_model/*.js` 
-            database: 'admin',      // other sequelize configurations
-        }
-    ]
+        fairy_sister: {
+          username: 'root',
+          password: '123456',
+          database: '142vip_db_test',
+          delegate: 'fairy_model',
+          baseDir: 'fairy_model', // 数据库模型存放的目录
+          exclude: '', // 支持数组或者字符串
+          Sequelize: require('sequelize'), // 指定Sequelize模块版本
+          // 其他配置，参考：https://github.com/sequelize/sequelize/blob/main/src/sequelize.js
+        },
+      }, 
+      app: true,
+      agent: false,
 };
 ```
 
 当然，为了便于区分，可以在model模型文件目录中，按照数据库对模型进行区分，例如：
 
 ```js
-// app/model/user.js
+// app/young_model/user.js
 'use strict';
 const {STRING, INTEGER, DATE} = require('sequelize');
 module.exports = app => {
@@ -358,7 +388,7 @@ module.exports = app => {
 };
 
 
-// app/admin_model/user.js
+// app/fairy_model/user.js
 'use strict';
 const {STRING, INTEGER, DATE} = require('sequelize');
 module.exports = app => {
@@ -373,8 +403,15 @@ module.exports = app => {
     });
 };
 ```
+调用两个不同的实例，可以通过：
 
-注意：由于二级目录不一样，虽然上述两个.js中都是定义User,但实际调用还是存在区别;app.model.xxx.User..
+ - ctx.fairy_model.User 或者 app.young_model.User
+ - ctx.young_model.User 或者 app.young_model.User
+
+实现了在context和application对象上进行挂载模型
+
+
+**注意：由于二级目录不一样，虽然上述两个.js中都是定义User,但实际调用还是存在区别;app.model.xxx.User..**
 
 **如果你在不同的数据库连接配置中定义相同的model数据库模型，相同的模型.js文件将会在不同的数据库被执行两次**， 因此需要使用第二个参数来获取sequelize对象实例，例如：
 
@@ -479,7 +516,10 @@ module.exports = app => {
     // 注意前置条件判断
     if (app.config.env === 'local' || app.config.env === 'unittest') {
         app.beforeStart(async () => {
-            await app.model.sync({force: true});
+            await app.model.sync({
+                alter: false, // 数据库表按照模型调整；
+                force: false, // 数据库表不强制删除后重建
+            });
         });
     }
 };

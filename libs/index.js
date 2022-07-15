@@ -19,22 +19,24 @@ async function createSequelizeInstance(config, app) {
     // 其他配置，参考：https://github.com/sequelize/sequelize/blob/main/src/sequelize.js
     options: {
       dialect: 'mysql',
-      host: 'localhost',
-      port: 3306,
+      host: '127.0.0.1', // 数据库主机地址，默认 127.0.0.1
+      port: 3306, // 数据库端口，默认3306
       benchmark: true,
       define: {
         freezeTableName: false,
         underscored: true,
       },
-      // 是否开启日志，默认false,支持自定义
+      // 是否开启日志，默认false,支持自定义,benchmark为false时候生效
       logging(...args) {
         // if benchmark enabled, log used
         const used = typeof args[1] === 'number' ? `(${args[1]}ms)` : '';
         app.logger.info('[@142vip/egg-sequelize]%s %s', used, args[0]);
       },
-      timezone: 'Asia/Shanghai',
+      timezone: '+00:00',
       pool: {
-        maxConnections: 5,
+        max: 5,
+        idle: 30000,
+        acquire: 60000,
       },
     },
   };
