@@ -1,8 +1,7 @@
 'use strict';
 const { STRING, BIGINT } = require('sequelize');
 module.exports = app => {
-  console.log(app.sequelize, app.model);
-  return app.sequelize.define('user', {
+  return app.model.define('user', {
     id: {
       filed: 'id',
       type: BIGINT(10),

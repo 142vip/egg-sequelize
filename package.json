@@ -2,7 +2,10 @@
   "name": "@142vip/egg-sequelize",
   "version": "0.0.4",
   "description": "兼容egg-sequelize插件的所有配置和功能，解决egg-sequelize连接数据库无法实现数据库动态部署",
-  "author": "Rong姐姐好可爱",
+  "author":{
+    "name": "Rong姐姐好可爱",
+    "email": "fairy_vip@2925.com"
+  },
   "ci": {
     "version": "8, 10"
   },
@@ -52,14 +55,13 @@
     "app.js",
     "agent.js"
   ],
-  "homepage": "https://github.com/mmdapl/@142vip/egg-sequelize#readme",
+  "homepage": "https://github.com/142vip/egg-sequelize#readme",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmdapl/@142vip/egg-sequelize.git"
+    "url": "git+https://github.com/142vip/egg-sequelize.git"
   },
   "bugs": {
-    "url": "https://github.com/mmdapl/@142vip/egg-sequelize/issues"
-  },
-  "main": "agent.js"
+    "url": "https://github.com/142vip/egg-sequelize/issues"
+  }
 }
