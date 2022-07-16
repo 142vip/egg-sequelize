@@ -1,6 +1,6 @@
 {
   "name": "@142vip/egg-sequelize",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "兼容egg-sequelize插件的所有配置和功能，解决egg-sequelize连接数据库无法实现数据库动态部署",
   "author": {
     "name": "Rong姐姐好可爱",
