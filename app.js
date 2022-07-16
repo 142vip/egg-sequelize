@@ -13,9 +13,9 @@ class AppBootHook {
     // 可以用来加载应用自定义的文件，启动自定义的服务
     const { config, app } = this;
 
-    assert(config.sequelize != null && typeof config.sequelize === 'object', '[@142vip/egg-sequelize] 缺少sequelize配置');
+    assert(config.sequelize != null && typeof config.sequelize === 'object', '[@142vip/egg-sequelize] 缺少sequelize配置，插件无法加载');
 
-    assert(typeof config.sequelize.app === 'boolean', '[@142vip/egg-sequelize] app为true或者false');
+    assert(typeof config.sequelize.app === 'boolean', '[@142vip/egg-sequelize] app字段配置为true或者false');
 
     if (config.sequelize.app) {
       await app.addSingleton('sequelize', await createSequelizeInstance);

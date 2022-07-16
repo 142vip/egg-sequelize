@@ -22,7 +22,7 @@ class Database {
     // 执行sql
     try {
       await connection.execute(creatDataBaseSql);
-      this.logger.info(`[@142vip/egg-sequelize] It is detected that the database ${database} does not exist, and the automatic creation of the database is successful`);
+      this.logger.info(`[@142vip/egg-sequelize] It is detected that the database:${database} does not exist, and the automatic creation of the database is successful`);
       connection.end();
     } catch (e) {
       this.logger.error('[@142vip/egg-sequelize] the automatic creation of the database is unsuccessful !');

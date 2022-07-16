@@ -72,7 +72,6 @@ Egg.js框架下Sequelize ORM插件支持，参考官方插件[egg-sequelize](htt
 - [x] 多数据源配置连接、连接池，连接自动重试机制（重试10次，每次休眠1s）
 - [x] app.js、agent.js 自定义挂载
 - [x] 多种方式调用sequelize实例；高度适配sequelize模块
-- [ ] ...
 
 ### 快速安装
 
@@ -544,12 +543,33 @@ module.exports = app => {
 
 ### 可能遇到的问题
 
+##### 1.如何开启模型同步
+
+```js
+// 在项目app.js中，调用sync()函数，启动项目时候即可同步model
+'use strict';
+class AppBootHook {
+    constructor(app) {
+        this.app = app;
+    }
+    async willReady() {
+        try {
+            await this.app.model.sync({
+                alter: true, // 数据库表按照模型调整；
+                force: false, // 数据库表不强制删除后重建
+            });
+        } catch (e) {
+        }
+    }
+}
+```
+
 更多问题欢迎 [issues](https://github.com/142vip/egg-sequelize/issues) 交流.
 
 ### 开发者
 
 - 个人：[Rong姐姐好可爱 ](https://github.com/mmdapl)
-- 组织：[142vip](https://github.com/142vip)
+- 开源组织：[142vip](https://github.com/142vip)
 
 ### 友情链接
 

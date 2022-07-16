@@ -6,8 +6,8 @@
     "name": "Rong姐姐好可爱",
     "email": "fairy_vip@2925.com"
   },
-  "ci": {
-    "version": "8, 10"
+  "eggPlugin": {
+    "name": "sequelize"
   },
   "dependencies": {
     "mysql2": "^2.0.0",
@@ -42,8 +42,8 @@
     "test": "npm run lint -- --fix && egg-bin pkgfiles && npm run test-local",
     "test-local": "egg-bin test"
   },
-  "eggPlugin": {
-    "name": "sequelize"
+  "ci": {
+    "version": "8, 10"
   },
   "engines": {
     "node": ">=8.0.0"

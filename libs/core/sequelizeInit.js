@@ -1,4 +1,10 @@
 'use strict';
+
+/**
+ *  参考egg-sequelize源码进行设计，对原库保持敬畏！
+ *
+ */
+
 const sleep = require('mz-modules/sleep');
 const path = require('path');
 const DB_AUTH_RETRIES = Symbol('DBAuthenticate#Retries');
@@ -36,7 +42,7 @@ class SequelizeInit {
     }
 
     if (model[delegateArr[delegateLen - 1]]) {
-      throw new Error(`[egg-sequelize] app[${config.delegate}] is already defined`);
+      throw new Error(`[@142vip/egg-sequelize] app[${config.delegate}] is already defined`);
     }
 
     // 将sequelize对象，挂载到ctx.model中，方便使用原生方法
@@ -81,7 +87,9 @@ class SequelizeInit {
       caseStyle: 'upper',
       ignore: config.exclude,
       filter(model) {
-        if (!model || !model.sequelize) return false;
+        if (!model || !model.sequelize) {
+          return false;
+        }
         models.push(model);
         return true;
       },
@@ -112,7 +120,7 @@ class SequelizeInit {
 
       if (sequelizeConnection[DB_AUTH_RETRIES] >= MaxRetryCount) throw error;
 
-      this.logger.warn(`[@142vip/egg-sequelize] Sequelize Error: ${error.message}, sleep 1 seconds to retry...`);
+      this.logger.warn(`[@142vip/egg-sequelize] Sequelize Connection Error: ${error.message}, sleep 1 seconds to retry...`);
       // 休眠1s，重试次数+1，默认最大10次 避免项目启动失败
       await sleep(1000);
       sequelizeConnection[DB_AUTH_RETRIES] += 1;
