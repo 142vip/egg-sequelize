@@ -21,6 +21,12 @@ module.exports = app => {
       allowNull: false,
       comment: '创建时间',
     },
+    update_time: {
+      filed: 'update_time',
+      type: BIGINT(13),
+      allowNull: false,
+      comment: '更新时间',
+    },
     delete_time: {
       filed: 'delete_time',
       type: BIGINT(13),

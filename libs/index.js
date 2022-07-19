@@ -1,4 +1,5 @@
 'use strict';
+
 const database = require('./core/database');
 const sequelizeInit = require('./core/sequelizeInit');
 
@@ -7,6 +8,7 @@ const sequelizeInit = require('./core/sequelizeInit');
  * @param config 连接配置，详细配置参考：https://github.com/sequelize/sequelize/blob/main/src/sequelize.js
  * @param app egg框架下的application对象
  */
+
 async function createSequelizeInstance(config, app) {
   const defaultConfig = {
     username: 'root',

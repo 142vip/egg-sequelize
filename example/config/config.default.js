@@ -39,7 +39,6 @@ module.exports = () => {
     app: true,
     agent: false,
   };
-
   return config;
 };
 
