@@ -12,7 +12,8 @@ class Database {
    * 数据库不存在时，自动创建数据库
    */
   async create() {
-    const { username, password, host, port, database } = this.config;
+    const { username, password, options } = this.config;
+    const { host, port, database } = options;
     const creatDataBaseSql = `CREATE DATABASE IF NOT EXISTS ${database} ` +
             'default charset utf8 COLLATE utf8_general_ci';
     const connection = await mysql.createConnection({
