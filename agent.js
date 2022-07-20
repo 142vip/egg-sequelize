@@ -8,7 +8,6 @@ class AgentBootHook {
     this.agent = agent;
     this.config = agent.config;
   }
-
   async didLoad() {
     const { config, agent } = this;
     assert(config.sequelize != null && typeof config.sequelize === 'object', '[@142vip/egg-sequelize] 缺少sequelize配置，插件无法加载');

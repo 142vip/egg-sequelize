@@ -4,7 +4,6 @@
  *  参考egg-sequelize源码进行设计，对原库保持敬畏！
  *
  */
-
 const sleep = require('mz-modules/sleep');
 const path = require('path');
 const DB_AUTH_RETRIES = Symbol('DBAuthenticate#Retries');
@@ -17,8 +16,6 @@ class SequelizeInit {
     this.config = config;
     this.logger = app.coreLogger;
   }
-
-
   /**
    * 加载数据库模型
    * @param databaseConfig 数据库配置

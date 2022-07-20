@@ -7,7 +7,6 @@ class Database {
     this.logger = app.coreLogger;
     this.config = config;
   }
-
   /**
    * 数据库不存在时，自动创建数据库
    */
