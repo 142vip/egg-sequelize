@@ -16,17 +16,19 @@ class SequelizeInit {
     this.config = config;
     this.logger = app.coreLogger;
   }
+
   /**
    * 加载数据库模型
-   * @param databaseConfig 数据库配置
    */
   async loadDataBaseModel() {
     const { app, config } = this;
     // sequelize模块版本
     const currentSequelize = config.Sequelize || require('sequelize');
-    const { username, password, database, options } = config;
+    const { username, password, database, options, connectUri } = config;
     // 实例化sequelize对象
-    app.sequelize = new currentSequelize(database, username, password, options);
+    app.sequelize = connectUri ?
+      new currentSequelize(connectUri, options) :
+      new currentSequelize(database, username, password, options);
 
     const delegateArr = config.delegate.split('.');
     const delegateLen = delegateArr.length;
@@ -75,6 +77,7 @@ class SequelizeInit {
   /**
    * 加载模型文件到app对象上，通过this.app.model.xxx使用
    * @param modelDir  数据库模型文件目录路径
+   * @param targetName
    * @param sequelize sequelize实例
    */
   async loadModelFileToApp(modelDir, targetName, sequelize) {
@@ -117,7 +120,9 @@ class SequelizeInit {
 
       if (sequelizeConnection[DB_AUTH_RETRIES] >= MaxRetryCount) throw error;
 
-      this.logger.warn(`[@142vip/egg-sequelize] Sequelize Connection Error: ${error.message}, sleep 1 seconds to retry...`);
+      this.logger.warn(`[@142vip/egg-sequelize] Sequelize Connection Error: ${
+        error.message}, sleep 1 seconds to retry...`);
+
       // 休眠1s，重试次数+1，默认最大10次 避免项目启动失败
       await sleep(1000);
       sequelizeConnection[DB_AUTH_RETRIES] += 1;
